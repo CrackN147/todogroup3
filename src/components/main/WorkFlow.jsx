@@ -1,5 +1,5 @@
 import { columnsConfig } from 'system/config';
-import { Column } from 'components';
+import { Column, ColumnUsers } from 'components';
 export const WorkFlow = () => {
   return (
     <div className='workflow'>
@@ -9,6 +9,7 @@ export const WorkFlow = () => {
           column={column}
         />
       ))}
+      <ColumnUsers />
     </div>
   );
 }

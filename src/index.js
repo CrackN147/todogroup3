@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {App} from './App';
-import { StaticDataProvider } from "system/StaticDataContext";
+import { StaticDataProvider } from "system/contexts/StaticDataContext";
+import { TasksDataProvider } from 'system/contexts/TasksDataContext';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <StaticDataProvider>
-      <App />
+      <TasksDataProvider>
+        <App />
+      </TasksDataProvider>
     </StaticDataProvider>
   </React.StrictMode>
 );

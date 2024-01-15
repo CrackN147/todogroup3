@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { StaticDataContext } from "system/StaticDataContext";
+import { StaticDataContext } from "system/contexts/StaticDataContext";
 export const Header = () => {
   const { openSidebar } = useContext(StaticDataContext);
   return (

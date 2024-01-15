@@ -1,16 +1,19 @@
+import { useContext } from "react";
+import { TasksDataContext } from "system/contexts/TasksDataContext";
 import { Task } from "components";
 
 export const Column = ({column}) => {
+  const { tasksData } = useContext(TasksDataContext);
   return (
     <div className="columns-block">
       <h2>{column.name}</h2>
       <div className='column'>
-        {/* {column.tasks.map((task, index) => (
+        {tasksData.filter((task) => task.columnId === column.id ).map((data, index) => (
           <Task 
-            key={`task-${task.id}`} 
-            task={task}
+            key={`task-${data.id}`} 
+            taskData={data}
           />
-        ))} */}
+        ))}
       </div>
     </div>
   );

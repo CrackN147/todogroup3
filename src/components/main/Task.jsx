@@ -1,8 +1,12 @@
 import { useContext } from "react";
-import { StaticDataContext } from "system/StaticDataContext";
-export const Task = () => {
+import { StaticDataContext } from "system/contexts/StaticDataContext";
+export const Task = ({taskData}) => {
   const { openSidebar } = useContext(StaticDataContext);
   return (
-    <div onClick={openSidebar}></div>
+    <div
+      className="task"
+      onClick={openSidebar}>
+      <p>{taskData.title}</p>
+    </div>
   )
 }
