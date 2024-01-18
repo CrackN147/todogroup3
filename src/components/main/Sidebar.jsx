@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { StaticDataContext } from "system/contexts/StaticDataContext";
 import { TasksDataContext } from "system/contexts/TasksDataContext";
 export const Sidebar = () => {
-  const { isSidebarOn } = useContext(StaticDataContext);
+  const { isSidebarOn, closeSidebar } = useContext(StaticDataContext);
   const { addTask } = useContext(TasksDataContext);
   const [title, setTitle] = useState('');
   
@@ -15,6 +15,7 @@ export const Sidebar = () => {
       title: title,
     })
     setTitle('');
+    closeSidebar();
   }
   return (
     <div className={`sidebar ${isSidebarOn ? 'sidebar-is-on' : 'sidebar-is-off'}`}>

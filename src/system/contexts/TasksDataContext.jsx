@@ -27,16 +27,23 @@ export const TasksDataProvider = ({children}) => {
       title: newTaskInfo.title,
       status: 'todo',
       columnId: 1,
-      priority: 1
+      priority: 1,
+      sort: 0
     });
     setTasksData(newTasksData);
     setData('Tasks', newTasksData);
   }, [tasksData]);
 
+  const updateTasksData = useCallback((newData) => {
+    setTasksData(newData);
+    setData('Tasks', newData);
+  }, []);
+
   return (
     <TasksDataContext.Provider value={{
       tasksData,
-      addTask
+      addTask,
+      updateTasksData
     }}>
       {children}
     </TasksDataContext.Provider>
