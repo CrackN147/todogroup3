@@ -4,6 +4,7 @@ export const StaticDataContext = createContext(null);
 
 export const StaticDataProvider = ({children}) => {
   const [isSidebarOn, setIsSidebarOn] = useState(false);
+  const [tempData, setTempData] = useState({});
 
   const closeSidebar = () => {
     setIsSidebarOn(false);
@@ -13,11 +14,22 @@ export const StaticDataProvider = ({children}) => {
     setIsSidebarOn(true);
   }
 
+  const updateTempData = useCallback((newData) => {
+    setTempData(newData);
+  }, []);
+
+  const clearTempData = useCallback(() => {
+    setTempData({});
+  }, []);
+
   return (
     <StaticDataContext.Provider value={{
       isSidebarOn,
       openSidebar,
-      closeSidebar
+      closeSidebar,
+      tempData,
+      updateTempData,
+      clearTempData
     }}>
       {children}
     </StaticDataContext.Provider>

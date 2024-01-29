@@ -1,18 +1,11 @@
 import { useState, createContext, useCallback } from "react";
+import moment from "moment";
 import {getData, setData} from "system/storage";
 export const TasksDataContext = createContext(null);
 
 export const TasksDataProvider = ({children}) => {
   const [tasksData, setTasksData] = useState(getData('Tasks') || []);
-  const taskExample = {
-    id: 1,
-    title: 'Task 1',
-    // description: 'Description 1',
-    status: 'todo',
-    priority: 1,
-    columnId: 1,
-    // assignedTo: 'User 1'
-  };
+
   const addTask = useCallback((newTaskInfo) => {
     let id = 0;
     const newTasksData = [...tasksData];
@@ -25,11 +18,29 @@ export const TasksDataProvider = ({children}) => {
     newTasksData.push({
       id: id + 1,
       title: newTaskInfo.title,
-      status: 'todo',
+      description: newTaskInfo.description,
+      created: moment().format("YYYY-MM-DD"),
+      expires: newTaskInfo.expires,
+      userId: parseInt(newTaskInfo.userId),
       columnId: 1,
       priority: 1,
       sort: 0
     });
+    setTasksData(newTasksData);
+    setData('Tasks', newTasksData);
+  }, [tasksData]);
+
+  const updateTask = useCallback((newTaskInfo) => {
+    const newTasksData = [...tasksData];
+    const taskIndex = newTasksData.findIndex((task) => task.id === newTaskInfo.id);
+    if (taskIndex < 0) return;
+    newTasksData[taskIndex] = {
+      ...newTasksData[taskIndex],
+      title: newTaskInfo.title,
+      description: newTaskInfo.description,
+      expires: newTaskInfo.expires,
+      userId: parseInt(newTaskInfo.userId)
+    };
     setTasksData(newTasksData);
     setData('Tasks', newTasksData);
   }, [tasksData]);
@@ -43,7 +54,8 @@ export const TasksDataProvider = ({children}) => {
     <TasksDataContext.Provider value={{
       tasksData,
       addTask,
-      updateTasksData
+      updateTasksData,
+      updateTask
     }}>
       {children}
     </TasksDataContext.Provider>

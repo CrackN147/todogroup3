@@ -1,11 +1,19 @@
 import { useContext, useState, useEffect } from "react";
+import { usersConfig } from "system/config";
 import { ListBoxComponent } from '@syncfusion/ej2-react-dropdowns';
+import { StaticDataContext } from "system/contexts/StaticDataContext";
 import { TasksDataContext } from "system/contexts/TasksDataContext";
-import { Task } from "components";
 
 export const Column = ({column, workflowRef}) => {
+  const { openSidebar, updateTempData } = useContext(StaticDataContext);
   const { tasksData, updateTasksData } = useContext(TasksDataContext);
   const [columnTasks, setColumnTasks] = useState([]);
+
+  const onItemCkeck = (e) => {
+    if (!e.items || e.items.length === 0) return;
+    updateTempData(e.items[0])
+    openSidebar();
+  }
 
   const onDataChange = () => {
     let currentWorkflow = workflowRef.current;
@@ -17,7 +25,7 @@ export const Column = ({column, workflowRef}) => {
         let tasks = columns[i].getElementsByClassName("e-list-item");
         for (let j = 0; j < tasks.length; j++) {
           let task = tasks[j];
-          let taskId = parseInt(task.id);
+          let taskId = parseInt(task.children[0].id);
           let taskDataIndex = newTasksData.findIndex((item) => item.id === taskId);
           newTasksData[taskDataIndex].columnId = colId;
           newTasksData[taskDataIndex].sort = j;
@@ -27,10 +35,16 @@ export const Column = ({column, workflowRef}) => {
     }
   }
   useEffect(() => {
-    let data = tasksData.filter((task) => parseInt(task.columnId) === parseInt(column.id) );
+    let data = tasksData.filter((task) => parseInt(task.columnId) === parseInt(column.id)).map(item => {
+      let user = usersConfig.find((user) => user.id === item.userId);
+      return {
+        ...item,
+        imgUrl: user ? user.imgUrl : ''
+      }
+    });
     data.sort((a, b) => a.sort - b.sort);
     setColumnTasks(data);
-  }, [tasksData, column.id]);
+  }, [tasksData, column.id, openSidebar]);
 
   return (
     <div className="columns-block">
@@ -43,13 +57,15 @@ export const Column = ({column, workflowRef}) => {
         scope="combined-list" 
         fields={{ text: "title" }}
         drop={onDataChange}
+        itemTemplate='<div class="task" id="${id}">
+          <div class="taskTop">
+            <p>ID: <span>${id}</span></p>
+            <img src="${imgUrl}" alt="user" />
+          </div>
+          <p>${title}</p>
+        </div>'
+        change={onItemCkeck}
       />
-        {/* {tasksData.filter((task) => task.columnId === column.id ).map((data, index) => (
-          <Task 
-            key={`task-${data.id}`} 
-            taskData={data}
-          />
-        ))} */}
       </div>
     </div>
   );

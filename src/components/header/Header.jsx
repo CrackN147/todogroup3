@@ -1,10 +1,14 @@
 import { useContext } from "react";
 import { StaticDataContext } from "system/contexts/StaticDataContext";
 export const Header = () => {
-  const { openSidebar } = useContext(StaticDataContext);
+  const { openSidebar, clearTempData } = useContext(StaticDataContext);
+  const createNewTask = () => {
+    clearTempData();
+    openSidebar();
+  }
   return (
     <header>
-      <button onClick={openSidebar}>Create New Task</button>
+      <button onClick={createNewTask}>Create New Task</button>
     </header>
   );
 }
