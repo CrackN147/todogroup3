@@ -1,0 +1,22 @@
+{
+  "data": {
+    "gamesList": [
+      {
+        "id": 1,
+        "name": "NBA 2K20 | Repack By FitGirl",
+        "description": "Description 1",
+        "image": "https://tamashebi.net/img/2/20231013122353_6528fe9947fb2.jpg",
+        "price": 50,
+        "category": "Action"
+      },
+      {
+        "id": 2,
+        "name": "NBA 2K20 | Repack By FitGirl",
+        "description": "Description 1",
+        "image": "https://tamashebi.net/img/2/20231013122353_6528fe9947fb2.jpg",
+        "price": 50,
+        "category": "Action"
+      }
+    ]
+  }
+}
