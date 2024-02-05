@@ -1,0 +1,22 @@
+{
+  "pages": {
+    "home": {
+      "title_ka": "მთავარი",
+      "title_en": "Home",
+      "description_ka": "This is the home page",
+      "description_en": "This is the home page"
+    },
+    "about": {
+      "title_ka": "About",
+      "title_en": "About",
+      "description_ka": "This is the about page",
+      "description_en": "This is the about page"
+    },
+    "contact": {
+      "title_ka": "Contact",
+      "title_en": "Contact",
+      "description_ka": "This is the contact page",
+      "description_en": "This is the contact page"
+    }
+  }
+}
