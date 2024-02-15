@@ -1,0 +1,19 @@
+{
+  "games": [
+    {
+      "id": 1,
+      "name": "Game 1",
+      "description": "This is game 1"
+    },
+    {
+      "id": 2,
+      "name": "Game 2",
+      "description": "This is game 2"
+    },
+    {
+      "id": 3,
+      "name": "Game 3",
+      "description": "This is game 3"
+    }
+  ]
+}
